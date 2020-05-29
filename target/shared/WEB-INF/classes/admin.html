@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        校友圈—资源共享平台（管理员）
+    </title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">校友圈—资源共享平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <!--        <ul class="layui-nav layui-layout-left">-->
+        <!--            <li class="layui-nav-item">-->
+        <!--                <a href="javascript:" data-id="1" data-title="控制台" data-url="" class="site-demo-active"-->
+        <!--                   data-type="tabAdd">控制台</a>-->
+        <!--            </li>-->
+        <!--            <li class="layui-nav-item">-->
+        <!--                <a href="javascript:" data-id="2" data-title="商品管理" data-url="" class="site-demo-active"-->
+        <!--                   data-type="tabAdd">商品管理</a>-->
+        <!--            </li>-->
+        <!--            <li class="layui-nav-item">-->
+        <!--                <a href="javascript:" data-id="3" data-title="用户" data-url="" class="site-demo-active"-->
+        <!--                   data-type="tabAdd">用户</a>-->
+        <!--            </li>-->
+        <!--            <li class="layui-nav-item">-->
+        <!--                <a href="javascript:">其它系统</a>-->
+        <!--                <dl class="layui-nav-child">-->
+        <!--                    <dd>-->
+        <!--                        <a href="javascript:" data-id="4" data-title="邮件管理" data-url=""-->
+        <!--                           class="site-demo-active" data-type="tabAdd">邮件管理</a>-->
+        <!--                    </dd>-->
+        <!--                    <dd>-->
+        <!--                        <a href="javascript:" data-id="5" data-title="消息管理" data-url=""-->
+        <!--                           class="site-demo-active" data-type="tabAdd">消息管理</a>-->
+        <!--                    </dd>-->
+        <!--                    <dd>-->
+        <!--                        <a href="javascript:" data-id="6" data-title="权限管理" data-url=""-->
+        <!--                           class="site-demo-active" data-type="tabAdd">权限管理</a>-->
+        <!--                    </dd>-->
+        <!--                </dl>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <ul class="layui-nav layui-layout-right">
+            <li id="user_info" class="layui-nav-item">
+                <a href="javascript:">
+                    <img id="head" src="/images/avatar/default.png" class="layui-nav-img">
+                    <span id="nick"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:" data-id="7" data-title="基本资料" data-url="/index"
+                           class="site-demo-active" data-type="tabAdd">基本资料</a>
+                    </dd>
+                    <dd>
+                        <a id="not_login" href="/login"></a><a id="login_out" href="#"></a>
+                    </dd>
+                </dl>
+            </li>
+            <!--            <li class="layui-nav-item"><a id="not_login" href="/login"></a><a id="login_out" href="#"></a></li>-->
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧垂直导航区域-->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a href="javascript:" data-id="10" data-title="数据统计" data-url="/index"
+                       class="site-demo-active" data-type="tabAdd">数据统计</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:" data-id="11" data-title="工作台" data-url="/index"
+                       class="site-demo-active" data-type="tabAdd">工作台</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:" data-id="8" data-title="用户管理" data-url="/user_manager"
+                       class="site-demo-active" data-type="tabAdd">用户管理</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:">资源管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:" data-id="12" data-title="管理员列表" data-url=""
+                               class="site-demo-active"
+                               data-type="tabAdd">管理员列表</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-id="13" data-title="管理员日志" data-url=""
+                               class="site-demo-active" data-type="tabAdd">管理员日志</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-id="14" data-title="管理员日志" data-url=""
+                               class="site-demo-active"
+                               data-type="tabAdd">管理员日志</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-id="15" data-title="管理员日志" data-url=""
+                               class="site-demo-active" data-type="tabAdd">管理员日志</a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--tab标签-->
+    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+        <ul id="menu" class="layui-tab-title">
+        </ul>
+        <div class="layui-tab-content ">
+            <span id="content"></span>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="text-align:center;">
+        <!-- 底部固定区域 -->
+        © 校友圈-资源共享平台
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/check_token.js"></script>
+<script>
+    <!--这里是放置js代码区域-->
+    layui.use(['element', 'layer', 'jquery'], function () {
+        var element = layui.element;
+        // var layer = layui.layer;
+        var $ = layui.$;
+        $(function () {
+            var token = getCookies("Authorization");
+            $.ajax({
+                url: '/ylgh/admin-user/info',
+                type: 'GET',
+                // 允许请求携带cookie
+                xhrFields: {withCredentials: true},
+                headers: {Authorization: token},
+                success: function (res) {
+                    if (res.code === 100) {
+                        // console.log(res);
+                        var head = res.info.data.adminHead;
+                        var defaultHead = "http://t.cn/RCzsdCq";
+                        $("#head").attr("src", head != null ? head : defaultHead);
+                        $("#nick").append(res.info.data.adminNickname);
+                        $("#content").append("欢迎\t\t" + res.info.data.adminNickname + "\t\t登录系统" + "\t" + "最后一次登录时间：" + res.info.data.lastLoginTime);
+                        $("#login_out").append("退出登录");
+                        $("#not_login").attr('hidden', 'hidden');
+                    } else {
+                        layer.msg(res.msg, {
+                            time: 1000,
+                            end: function () {
+                                // location.href = "/login";
+                                window.location.href = "/login";
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        //退出登录
+        $("#login_out").on("click", function () {
+            document.cookie = "Authorization" + "=" + "";
+            layer.msg("成功退出登录！", {
+                time: 1000,
+                end: function () {
+                    // location.href = "/login";
+                    window.location.href = "/login";
+                }
+            });
+        });
+
+        // 配置tab实践在下面无法获取到菜单元素
+        $('.site-demo-active').on('click', function () {
+            $("#content").attr('hidden', 'hidden');
+            var dataid = $(this);
+            //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
+            if ($(".layui-tab-title li[lay-id]").length <= 0) {
+                //如果比零小，则直接打开新的tab项
+                active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
+            } else {
+                //否则判断该tab项是否以及存在
+                var isData = false; //初始化一个标志，为false说明未打开该tab项 为true则说明已有
+                $.each($(".layui-tab-title li[lay-id]"), function () {
+                    //如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
+                    if ($(this).attr("lay-id") == dataid.attr("data-id")) {
+                        isData = true;
+                    }
+                });
+                if (isData == false) {
+                    //标志为false 新增一个tab项
+                    active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
+                }
+            }
+            //最后不管是否新增tab，最后都转到要打开的选项页面上
+            active.tabChange(dataid.attr("data-id"));
+        });
+        var active = {
+            //在这里给active绑定几项事件，后面可通过active调用这些事件
+            tabAdd: function (url, id, name) {
+                //新增一个Tab项 传入三个参数，分别对应其标题，tab页面的地址，还有一个规定的id，是标签中data-id的属性值
+                //关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
+                element.tabAdd('demo', {
+                    title: name,
+                    content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url +
+                        '" style="width:100%;height:99%;"></iframe>',
+                    id: id //规定好的id
+                });
+                FrameWH(); //计算ifram层的大小
+            },
+            tabChange: function (id) {
+                //切换到指定Tab项
+                element.tabChange('demo', id); //根据传入的id传入到指定的tab项
+            },
+            tabDelete: function (id) {
+                element.tabDelete("demo", id); //删除
+            }
+        };
+
+        function FrameWH() {
+            var h = $(window).height();
+            $("iframe").css("height", h + "px");
+        }
+    });
+</script>
+</body>
+</html>

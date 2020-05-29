@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>登录页</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/layui/css/style.css">
+</head>
+<body>
+
+<div class="login-main">
+    <header class="layui-elip">登录</header>
+    <form class="layui-form">
+        <div class="layui-input-inline">
+            <input id="username" type="text" name="account" required lay-verify="required" placeholder="用户名"
+                   autocomplete="off"
+                   class="layui-input" value="13684433731">
+        </div>
+        <div class="layui-input-inline">
+            <input id="password" type="password" name="password" required lay-verify="required" placeholder="密码"
+                   autocomplete="off"
+                   class="layui-input" value="gjf4156">
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+        </div>
+        <hr/>
+        <!--		<div class="layui-input-inline">-->
+        <!--			<button type="button" class="layui-btn layui-btn-primary">QQ登录</button>-->
+        <!--		</div>-->
+        <!--		<div class="layui-input-inline">-->
+        <!--			<button type="button" class="layui-btn layui-btn-normal">微信登录</button>-->
+        <!--		</div>-->
+        <p><a href="/registered" class="fl">立即注册</a><a href="javascript:" class="fr">忘记密码？</a></p>
+    </form>
+</div>
+
+<script src="/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layer', 'jquery'], function () {
+        // 操作对象
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(login)', function (data) {
+            var account = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                url: '/ylgh/admin-user/' + account + "/" + password,
+                type: 'GET',
+                success: function (res) {
+                    if (res.code === 100) {
+                        console.log(res);
+                        document.cookie="Authorization" + "=" +res.info.token;
+                        // layui.sessionData("token",{"key":"token","value":callbackData.info.token});
+                        // location.href = "/pages/index";
+                        layer.msg("登陆成功！", {
+                            time: 1000,
+                            end: function(){
+                                // location.href = "/login";
+                                window.location.href = "/admin";
+                            }
+                        });
+                    } else {
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+            return false;
+        })
+    });
+</script>
+</body>
+</html>

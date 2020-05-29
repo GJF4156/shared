@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/layui/css/style.css">
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<div>
+    <label>
+        <input id="pageNum" type="text" placeholder="请输入页数"><br>
+        <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+        <input type="button" id="editBut" name="editBut" value="更新"><br>
+    </label><br>
+
+</div>
+<script src="/layui/lay/modules/jquery.js"></script>
+<script src="/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layer', 'jquery'], function () {
+        // 操作对象
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(login)', function (data) {
+            var page = $("#pageNum").val();
+            $.ajax({
+                type: "GET",
+                url: "/ylgh/garbage/get/" + page,
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+        var garbage = new Object();
+        garbage.id = 22222;
+        garbage.gtype = 33;
+        garbage.aipre = 2;
+        garbage.gname = "name";
+        garbage.gexplain = "explain";
+        garbage.gcontain = "contain";
+        garbage.gtip = "tip";
+        let s = JSON.stringify(garbage);
+        $("#editBut").on("click", function () {
+            $.ajax({
+                url: "/ylgh/garbage/put/" + s,
+                type: "PUT",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                },
+            })
+        });
+    });
+
+</script>
+</body>
+</html>
