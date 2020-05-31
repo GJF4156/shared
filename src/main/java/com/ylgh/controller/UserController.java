@@ -3,12 +3,14 @@ package com.ylgh.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sun.org.glassfish.gmbal.ParameterNames;
 import com.ylgh.pojo.AdminUser;
 import com.ylgh.pojo.LayData;
 import com.ylgh.pojo.User;
+import com.ylgh.pojo.vo.UserVo;
 import com.ylgh.service.UserService;
 import com.ylgh.utils.JsonMessage;
 import com.ylgh.utils.MD5;
@@ -17,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.json.Json;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -90,6 +93,48 @@ public class UserController {
         layData.setMsg("查询成功");
         layData.setData(userPage.getRecords());
         return layData;
+    }
+
+    @DeleteMapping(value = "/{phone}")
+    @ResponseBody
+    public JsonMessage delete(@PathVariable("phone") String phone){
+        if (phone!=null && !phone.equals("")){
+            QueryWrapper<User> wrapper = new QueryWrapper<>();
+            wrapper.eq("user_phone", phone);
+            boolean remove = userService.remove(wrapper);
+            if (remove){
+                return JsonMessage.success();
+            }else {
+                return JsonMessage.error("操作失败！请稍后再试...");
+            }
+        }else {
+            return JsonMessage.error("操作失败！");
+        }
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public JsonMessage update(UserVo user){
+        logger.info(user.toString());
+        User u=new User();
+        u.setUserPhone(user.getUserPhone());
+        u.setUserNick(user.getUserNick());
+        u.setUserEmail(user.getUserEmail());
+        u.setUserSex(user.getUserSex());
+        u.setUserAddress(user.getUserAddress());
+        u.setUserAutograph(user.getUserAutograph());
+        u.setLastLoginTime(user.getLastLoginTime());
+        u.setLoginIp(user.getLoginIp());
+        u.setUserStatus(user.getUserStatus());
+        logger.info("修改用户信息："+u.toString());
+        UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
+        userUpdateWrapper.eq("user_phone", u.getUserPhone());
+        boolean update = userService.update(u, userUpdateWrapper);
+        if (update){
+            return JsonMessage.success();
+        }else {
+            return JsonMessage.error("更新失败！");
+        }
     }
 
 
