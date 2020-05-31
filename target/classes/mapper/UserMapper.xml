@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylgh.dao.UserMapper">
+
+    <select id="fuzzyQuery" resultType="com.ylgh.pojo.User">
+        SELECT * FROM user
+            where 1=1
+            <if test='user.userPhone!=null and user.userPhone!=" "'>
+                AND user_phone like CONCAT('%',#{user.userPhone},'%')
+            </if>
+            <if test='user.userNick!=null and user.userNick!=" "'>
+                AND user_nick like CONCAT('%',#{user.userNick},'%')
+            </if>
+            <if test='user.userEmail!=null and user.userEmail!=" "'>
+                AND user_email like CONCAT('%',#{user.userEmail},'%')
+            </if>
+            <if test='user.userAddress!=null and user.userAddress!=" "'>
+                AND user_address like CONCAT('%',#{user.userAddress},'%')
+            </if>
+            <if test='user.userAutograph!=null and user.userAutograph!=" "'>
+                AND user_autograph like CONCAT('%',#{user.userAutograph},'%')
+            </if>
+            <if test='user.userStatus!=null'>
+                AND user_status like CONCAT('%',#{user.userStatus},'%')
+            </if>
+    </select>
+</mapper>

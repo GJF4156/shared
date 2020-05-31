@@ -9,73 +9,79 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body>
-<div>
-    <!--  检索区域  -->
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件一</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件二</label>
-            <div class="layui-input-inline">
-                <input type="text" name="email" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件三</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件四</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
+<form class="layui-form" id="search_data">
+<!--  检索区域  -->
+<!--  第一行  -->
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-inline">
+            <label>
+                <input type="number" id="phone" name="phone" autocomplete="off" class="layui-input">
+            </label>
         </div>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件五</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件六</label>
-            <div class="layui-input-inline">
-                <input type="text" name="email" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件七</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">查询条件八</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" autocomplete="off" class="layui-input">
-            </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-inline">
+            <label>
+                <input type="text" id="nick" name="nick" autocomplete="off" class="layui-input">
+            </label>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <label>
+                <input type="email" id="email" name="email" autocomplete="off" class="layui-input">
+            </label>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-inline">
+            <label>
+                <input type="text" id="address" name="address" autocomplete="off" class="layui-input">
+            </label>
+        </div>
+    </div>
+</div>
+<!--  第二行  -->
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">签名</label>
+        <div class="layui-input-inline">
+            <label>
+                <input type="text" id="autograph" name="autograph" autocomplete="off" class="layui-input">
+            </label>
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">账号状态</label>
+        <div class="layui-input-inline">
+            <label>
+                <select id="status" name="status" lay-filter="status">
+                    <option value="" selected=""></option>
+                    <option value="1">禁用</option>
+                    <option value="0">正常</option>
+                    <option value="2">已注销</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class=" layui-inline">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="submit" lay-submit lay-filter="sub" class="layui-btn layui-btn-sm">立即查询</button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
         </div>
     </div>
 </div>
+</form>
+<!--  用户表  -->
+<table class="layui-hide" id="test" lay-filter="test"></table>
 
-<div>
-    <!--  用户表  -->
-    <table class="layui-hide" id="test" lay-filter="test"></table>
 
-</div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
@@ -88,17 +94,34 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
+<script type="text/html" id="table_status">
+    {{#  if(d.userStatus ===1){ }}
+    <span style="color: #f5cc28;">禁用</span>
+    {{#  } }}
+    {{#  if(d.userStatus ===0){ }}
+    <span style="color: #35f502;">正常</span>
+    {{#  } }}
+    {{#  if(d.userStatus ===2){ }}
+    <span style="color: #f50004;">已注销</span>
+    {{#  } }}
+</script>
 
 <script src="/layui/layui.js"></script>
 <script src="/js/check_token.js"></script>
 <script>
-    layui.use('table', function () {
+    layui.use(['form', 'jquery', 'layer', 'table'], function () {
         var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
 
         table.render({
             elem: '#test'
-            , url: "http://www.layui.com/test/table/demo1.json"
+            , id: "test"
+            , url: "ylgh/user/get"
+            , page: true
+            , limits: [5, 10, 15]
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -106,25 +129,37 @@
                 , icon: 'layui-icon-tips'
             }]
             , title: '用户数据表'
+            ,text: {
+                none: '未查询到相关数据' //默认：无数据。
+            }
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
-                , {field: 'username', title: '用户名', width: 120, edit: 'text'}
+                , {field: 'userPhone', title: '账号', width: 120, fixed: 'left', align: "center"}
+                , {field: 'userNick', title: '昵称', width: 120, edit: 'text', align: "center"}
                 , {
-                    field: 'email', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
-                        return '<em>' + res.email + '</em>'
+                    field: 'userEmail', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
+                        return '<em>' + res.userEmail + '</em>'
+                    }, align: "center"
+                }
+                , {
+                    field: 'userSex',
+                    title: '性别',
+                    width: 80,
+                    edit: 'text',
+                    sort: true,
+                    align: "center",
+                    templet: function (d) {
+                        return d.userSex === 0 ? "男" : "女"
                     }
                 }
-                , {field: 'sex', title: '性别', width: 80, edit: 'text', sort: true}
-                , {field: 'city', title: '城市', width: 100}
-                , {field: 'sign', title: '签名'}
-                , {field: 'experience', title: '积分', width: 80, sort: true}
-                , {field: 'ip', title: 'IP', width: 120}
-                , {field: 'logins', title: '登入次数', width: 100, sort: true}
-                , {field: 'joinTime', title: '加入时间', width: 120}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                , {field: 'userAddress', title: '城市', width: 100, align: "center"}
+                , {field: 'userAutograph', title: '签名', align: "center", width: 200}
+                , {field: 'lastLoginTime', title: '上次登录时间', width: 160, sort: true, align: "center"}
+                , {field: 'loginIp', title: '登陆IP', width: 120, align: "center"}
+                , {field: 'userStatus', title: '账号状态', width: 100, align: "center", templet: "#table_status"}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150, align: "center"}
             ]]
-            , page: true
+
         });
 
         //头工具栏事件
@@ -170,6 +205,66 @@
                     layer.close(index);
                 });
             }
+        });
+
+        // 执行搜索，表格重载
+        $('#search').on('click', function () {
+            // 搜索条件
+            var userPhone = $('#phone').val();
+            table.reload('test', {
+                url:"ylgh/user/selectByPhone",
+                method: 'post'
+                , where: {
+                    'userPhone': userPhone,
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        });
+
+        //添加表单监听事件,提交查询信息
+        form.on('submit(sub)', function () {
+            var user = new Object();
+            user.userPhone = $('#phone').val();
+            user.userNick = $('#nick').val();
+            user.userEmail = $('#email').val();
+            user.userAddress = $('#address').val();
+            user.userAutograph = $('#autograph').val();
+            user.userStatus = $('#status').val();
+            let s = JSON.stringify(user);
+            console.log(s);
+            table.reload('test', {
+                url:"ylgh/user/selectByPhone",
+                method: 'post'
+                , where: {
+                    'user': s,
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            // $.ajax({
+            //     url: 'ylgh/user/selectByPhone',
+            //     type: 'post',
+            //     data:{user:s},
+            //     success: function (res) {
+            //         console.log(res)
+            //         // if (res.code === 100) {
+            //         //     layer.msg(res.msg + "请前往登录...", {
+            //         //         time: 1000,
+            //         //         end: function () {
+            //         //             // location.href = "/login";
+            //         //             window.location.href = "/login";
+            //         //         }
+            //         //     });
+            //         // } else {
+            //         //     layer.msg(res.msg);
+            //         // }
+            //     }
+            // });
+            //防止页面跳转
+            return false;
         });
     });
 </script>

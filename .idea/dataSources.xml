@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="801df1b4-f028-40f6-a4ea-17780ee610ed">
+    <data-source source="LOCAL" name="MySQL - shared@129.211.75.130" uuid="b80f16e9-c688-4302-b0e3-1c1bcc819d7b">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://129.211.75.130:3306/shared?serverTimezone=UTC</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="jdbc:mysql://129.211.75.130:3306?serverTimezone=GMT%2B8" uuid="ee63a5d0-bd56-423f-aac4-3fbb802a3bd2">
+    <data-source source="LOCAL" name="shared@localhost" uuid="2be22abd-6a2b-4d14-902e-93e2989c6d87">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://129.211.75.130:3306?serverTimezone=GMT%2B8</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/shared?serverTimezone=UTC</jdbc-url>
     </data-source>
   </component>
 </project>
